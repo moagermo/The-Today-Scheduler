@@ -12,20 +12,34 @@ var fiveBlock = $('#5-o-clock');
 var sixBlock = $('#6-o-clock');
 var saveButton = $('.saveButton')
 
+// Sets a blockText variable to save the values entered in
+var blockText = [nineBlock.val(), tenBlock.val(), elevenBlock.val(), twelveBlock.val(), oneBlock.val(), twoBlock.val(), threeBlock.val(), fourBlock.val(), fiveBlock.val(), sixBlock.val()];
 var storedBlocks = JSON.parse(localStorage.getItem("blockText"));
 
+// Goes through the saved block text and sets the current value to that of which the saved text is
+var num;
+for(num = 0 ; num < storedBlocks.length ; num++)
+{
+    blockText[num] = storedBlocks[num];
+}
+
+// Sets variable of the block so that we can set the colors
 var blocks = [nineBlock, tenBlock, elevenBlock, twelveBlock, oneBlock, twoBlock, threeBlock, fourBlock, fiveBlock, sixBlock];
-var blockText = [nineBlock.textContent, tenBlock.textContent, elevenBlock.textContent, twelveBlock.textContent, oneBlock.textContent, twoBlock.textContent, threeBlock.textContent, fourBlock.textContent, fiveBlock.textContent, sixBlock.textContent];
 
 
+
+// Sets interval for seconds to count
 setInterval(displayTime, 1000);
 
 
+// Function that saves every block whenever you hit save, anywhere.
 saveButton.click(function()
-{
+{   
+    blockText = [nineBlock.val(), tenBlock.val(), elevenBlock.val(), twelveBlock.val(), oneBlock.val(), twoBlock.val(), threeBlock.val(), fourBlock.val(), fiveBlock.val(), sixBlock.val()];
     localStorage.setItem('blockText', JSON.stringify(blockText));
 })
 
+// Displays the date at the top
 function displayTime()
 {
     var currentDate = moment().format('dddd MMMM Do');
@@ -33,6 +47,7 @@ function displayTime()
     setInterval(colorizeBlocks, 1000); 
 }
 
+// Turns the time blocks when it's a certain time
 function colorizeBlocks()
 {
     for(i = 0 ; i < blocks.length ; i++)
